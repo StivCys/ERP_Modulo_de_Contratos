@@ -4,9 +4,29 @@ import { Head, usePage } from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 import { ref, watch } from 'vue'
 
-defineProps({
-    contratos: Object
+const props = defineProps({
+    contratos: Object,
+    filters: Object,
 })
+
+const search = ref(props.filters?.search || '')
+const dateStart = ref(props.filters?.date_start || '')
+const dateEnd = ref(props.filters?.date_end || '')
+
+const filter = () => {
+    router.get(route('contrato.index'), {
+        search: search.value,
+        date_start: dateStart.value,
+        date_end: dateEnd.value,
+    }, { preserveState: true, replace: true })
+}
+
+const clearFilter = () => {
+    search.value = ''
+    dateStart.value = ''
+    dateEnd.value = ''
+    filter()
+}
 
 const page = usePage()
 const flashMessage = ref(page.props.flash.success)
@@ -63,6 +83,15 @@ const deleteContrato = (contrato) => {
                     <button @click="createContrato" class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
                         Novo Contrato
                     </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <input v-model="search" @keyup.enter="filter" type="text" placeholder="Buscar por Cliente" class="w-full sm:w-auto border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" />
+                    <input v-model="dateStart" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                    <input v-model="dateEnd" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                    <button @click="filter" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Buscar</button>
+                    <button @click="clearFilter" class="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300">Limpar</button>
                 </div>
                 <div v-if="flashMessage" class="p-4 mb-6 text-green-800 bg-green-200 rounded">
                     {{ flashMessage }}

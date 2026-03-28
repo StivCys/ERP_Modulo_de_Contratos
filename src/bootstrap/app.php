@@ -22,5 +22,20 @@ return Application::configure(basePath: dirname(__DIR__))
         //
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        //
+        $exceptions->render(function (\App\Exceptions\BusinessException $e, \Illuminate\Http\Request $request) {
+            if ($request->expectsJson()) {
+                return response()->json(['message' => $e->getMessage()], 422);
+            }
+            return back()->with('error', $e->getMessage())->withInput();
+        });
+
+        $exceptions->render(function (\Illuminate\Database\QueryException $e, \Illuminate\Http\Request $request) {
+            // Error 1451 é Cannot delete or update a parent row: a foreign key constraint fails
+            if (isset($e->errorInfo[1]) && $e->errorInfo[1] === 1451) {
+                if ($request->expectsJson()) {
+                    return response()->json(['message' => 'Não é possível excluir este registro pois ele está vinculado a outros dados do sistema.'], 409);
+                }
+                return back()->with('error', 'Não é possível excluir este registro pois ele está vinculado a outros dados do sistema.');
+            }
+        });
     })->create();

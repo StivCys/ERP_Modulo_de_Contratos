@@ -25,4 +25,9 @@ class Cliente extends Model
     {
         return ClienteFactory::new();
     }
+
+    public function contratos()
+    {
+        return $this->hasMany(\App\Domains\Contrato\Models\Contrato::class);
+    }
 }

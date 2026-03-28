@@ -16,6 +16,7 @@ class ServicoController extends Controller
     {
         return inertia('Servico/Index', [
             'servicos' => $action->execute(),
+            'filters' => request()->only(['search', 'date_start', 'date_end']),
         ]);
     }
 

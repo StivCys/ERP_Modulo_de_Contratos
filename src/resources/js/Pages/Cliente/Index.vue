@@ -4,9 +4,29 @@ import { ref, watch } from 'vue'
 import { Head, usePage } from '@inertiajs/vue3';
 import { router } from '@inertiajs/vue3';
 
-defineProps({
-    clientes: Object
+const props = defineProps({
+    clientes: Object,
+    filters: Object,
 });
+
+const search = ref(props.filters?.search || '')
+const dateStart = ref(props.filters?.date_start || '')
+const dateEnd = ref(props.filters?.date_end || '')
+
+const filter = () => {
+    router.get(route('cliente.index'), {
+        search: search.value,
+        date_start: dateStart.value,
+        date_end: dateEnd.value,
+    }, { preserveState: true, replace: true })
+}
+
+const clearFilter = () => {
+    search.value = ''
+    dateStart.value = ''
+    dateEnd.value = ''
+    filter()
+}
 
 const page = usePage()
 const flashMessage = ref(page.props.flash.success)
@@ -34,15 +54,15 @@ const editCliente = (cliente) => {
 const createCliente = () => {
     router.get(route('cliente.create'))
 }
-// const deleteCliente = (cliente) => {
-//     if (confirm('Are you sure you want to delete this cliente?')) {
-//         router.delete(route('cliente.destroy', cliente.id), {
-//             onSuccess: () => {
-//                 console.log('deleted')
-//             }
-//         })
-//     }
-// }
+const deleteCliente = (cliente) => {
+    if (confirm('Are you sure you want to delete this cliente?')) {
+        router.delete(route('cliente.destroy', cliente.id), {
+            onSuccess: () => {
+                console.log('deleted')
+            }
+        })
+    }
+}
 
 </script>
 
@@ -61,6 +81,15 @@ const createCliente = () => {
                     <button @click="createCliente" class="px-4 py-2 text-white bg-green-500 rounded hover:bg-green-600">
                         Novo Cliente
                     </button>
+                </div>
+
+                <!-- Filters -->
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <input v-model="search" @keyup.enter="filter" type="text" placeholder="Buscar por Nome ou CPF/CNPJ" class="w-full sm:w-auto border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" />
+                    <input v-model="dateStart" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                    <input v-model="dateEnd" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                    <button @click="filter" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Buscar</button>
+                    <button @click="clearFilter" class="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300">Limpar</button>
                 </div>
                 <div v-if="flashMessage" class="p-4 mb-6 text-green-800 bg-green-200 rounded">
                     {{ flashMessage }}
@@ -117,10 +146,10 @@ const createCliente = () => {
                                                 class="px-2 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">
                                                 Edit
                                             </button>
-                                            <!-- <button v-on:click="deleteCliente(cliente)"
+                                            <button v-on:click="deleteCliente(cliente)"
                                                 class="px-2 py-1 text-sm text-white bg-red-500 rounded hover:bg-red-600">
                                                 Delete
-                                            </button> -->
+                                            </button>
                                         </td>
                                     </tr>
 

@@ -25,6 +25,7 @@ class ContratoController extends Controller
     {
         return inertia('Contrato/Index', [
             'contratos' => $action->execute(),
+            'filters' => request()->only(['search', 'date_start', 'date_end']),
         ]);
     }
 
@@ -57,12 +58,8 @@ class ContratoController extends Controller
 
     public function update(Request $request, UpdateContrato $action)
     {
-        try {
-            $action->execute($request->all());
-            return redirect()->route('contrato.index')->with('success', 'Contrato atualizado com sucesso!');
-        } catch (\Exception $e) {
-            return back()->with('error', $e->getMessage());
-        }
+        $action->execute($request->all());
+        return redirect()->route('contrato.index')->with('success', 'Contrato atualizado com sucesso!');
     }
 
     public function destroy($id, DeleteContrato $action)

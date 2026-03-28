@@ -33,10 +33,10 @@ class UpdateContrato
         Validator::make($data, $rules)->validate();
 
         return DB::transaction(function () use ($data) {
-            $contrato = Contrato::findOrFail($data['id']);
+            $contrato = Contrato::where('id', $data['id'])->firstOrFail();
 
             if ($contrato->status === 'cancelado' && ($data['status'] ?? null) === 'cancelado') {
-                throw new \Exception("Cannot edit a canceled contract.");
+                throw new \App\Exceptions\BusinessException("Não é possível editar um contrato cancelado.");
             }
 
             $dadosAnteriores = $contrato->only(['cliente_id', 'data_inicio', 'data_fim', 'status']);
@@ -85,7 +85,7 @@ class UpdateContrato
                     $servico = $this->servicoService->obterPorId($item['servico_id']);
 
                     if (isset($item['id'])) {
-                        $contratoItem = $contrato->items()->find($item['id']);
+                        $contratoItem = $contrato->items()->where('id', $item['id'])->first();
                         if ($contratoItem) {
                             $anterior = $contratoItem->only(['servico_id', 'quantidade', 'valor_unitario']);
                             $contratoItem->update([

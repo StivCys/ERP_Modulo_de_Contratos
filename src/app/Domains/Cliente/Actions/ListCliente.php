@@ -13,7 +13,26 @@ class ListCliente
         if ($id) {
             return  Cliente::find($id);
         }
-        return Cliente::paginate(10); // 10 por página
+
+        $query = Cliente::query();
+
+        if (request()->has('search') && request('search') != '') {
+            $search = request('search');
+            $query->where(function($q) use ($search) {
+                $q->where('nome', 'like', "%{$search}%")
+                  ->orWhere('cpf_cnpj', 'like', "%{$search}%");
+            });
+        }
+
+        if (request()->has('date_start') && request('date_start') != '') {
+            $query->whereDate('created_at', '>=', request('date_start'));
+        }
+
+        if (request()->has('date_end') && request('date_end') != '') {
+            $query->whereDate('created_at', '<=', request('date_end'));
+        }
+
+        return $query->paginate(10)->withQueryString();
 
     }
 }

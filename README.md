@@ -183,3 +183,14 @@ $user = App\Models\User::first();
 $token = $user->createToken('api-test')->plainTextToken;
 echo $token;
 ```
+
+
+# Testes
+
+Apos rodar os testes o usuario adm pode perder as permissoes devido ao refreshdatabase, 
+entao entrar no container
+rodar o o arquivo assign-role.sh para atribuir as permissoes ao usuario adm
+
+```bash
+./assign-role.sh
+``` 
