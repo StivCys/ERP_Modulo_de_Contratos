@@ -1,0 +1,39 @@
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(10)->create();
+Customer::factory()->count(10)->create();
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(10)->create();
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(10)->create();
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(10)->create();
+Customer::factory()->count(10)->create();
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(10)->create();
+q
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(50)->create();
+qq
+\App\Models\User::first()?->assignRole('admin');
+q
+\App\Models\User::first()?->assignRole('admin');
+$user = \App\Models\User::find(1); // ou where('email', 'seu@email.com')->first()
+$user->assignRole('admin');
+Customer::factory()->count(50)->create();
+Cliente::factory()->count(50)->create();
+Cliente::factory()->count(50)->create();
+Cliente::factory()->count(50)->create();
+Cliente::factory()->count(50)->create();
+use App\Domains\Cliente\Models\Cliente;
+Cliente::factory()->count(50)->create();
+Cliente::factory()->count(50)->create();
+use App\Domains\Cliente\Models\Cliente;
+Cliente::factory()->count(50)->create();
+use App\Domains\Cliente\Models\Cliente;
+Cliente::factory()->count(50)->create();
+d
+\App\Models\User::first()?->assignRole('admin');
+\App\Models\User::first()?->assignRole('admin');
+\App\Models\User::first()?->assignRole('admin');
+\App\Models\User::first()?->assignRole('admin');
+\App\Models\User::first()?->assignRole('admin');
