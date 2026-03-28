@@ -61,8 +61,8 @@ POST /api/tokens/create
 Content-Type: application/json
 
 {
-    "email": "seu@email.com",
-    "password": "sua_senha",
+    "email": "test@example.com",
+    "password": "password",
     "device_name": "meu-app"
 }
 ```
@@ -188,7 +188,7 @@ echo $token;
 # Testes
 
 Apos rodar os testes o usuario adm pode perder as permissoes devido ao refreshdatabase, 
-entao entrar no container
+entao será preciso entrar no container e
 rodar o o arquivo assign-role.sh para atribuir as permissoes ao usuario adm
 
 ```bash
