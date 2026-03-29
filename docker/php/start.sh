@@ -7,19 +7,36 @@ if [ ! -f artisan ]; then
   exit 1
 fi
 
+if [ ! -d "vendor" ]; then
+  echo "Instalando dependências..."
+  composer install --no-interaction --prefer-dist
+fi
+
 if [ ! -f .env ]; then
   echo "Criando .env..."
   cp .env.example .env
   php artisan key:generate
 fi
 
+if ! grep -q "APP_KEY=base64" .env; then
+  echo "Gerando APP_KEY..."
+  php artisan key:generate
+fi
+
 echo "Aguardando banco de dados..."
 
-until php artisan migrate:status > /dev/null 2>&1
-do
-  echo "Banco ainda não respondeu..."
+until php -r "
+try {
+    new PDO('mysql:host=db;port=3306;dbname=laravel', 'laravel', 'laravel');
+} catch (Exception \$e) {
+    exit(1);
+}
+"; do
+  echo "Banco ainda não respondeu...aaaaaaaaaa"
   sleep 2
 done
+
+echo "Banco pronto!"
 
 echo "Rodando migrations..."
 php artisan migrate --force

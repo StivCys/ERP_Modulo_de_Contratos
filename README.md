@@ -29,8 +29,8 @@ docker compose build
 # ajustar .env substituindo as variaveis
 
 ```.env
-APP_URL=http://localhost:8000
-VITE_DEV_SERVER_URL=http://localhost:5173
+APP_URL=http://<SEU-IP-OU-localhost>:8000
+VITE_DEV_SERVER_URL=http://<SEU-IP-OU-localhost>:5173
 
 DB_CONNECTION=mysql
 DB_HOST=db
@@ -38,6 +38,19 @@ DB_PORT=3306
 DB_DATABASE=laravel
 DB_USERNAME=laravel
 DB_PASSWORD=laravel
+```
+
+# SE USAR IP PRECISA CONFIGURAR O vite.config.js TAMBEM !!!
+
+```javascript
+    server: {
+        host: '[IP_ADDRESS]',
+        port: 5173,
+        strictPort: true,
+        hmr: {
+            host: '[IP_ADDRESS]',
+        },
+    },
 ```
 
 # subir o container

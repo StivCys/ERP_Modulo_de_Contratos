@@ -230,3 +230,80 @@ exit
 ls -lah
 exi
 exit
+php artisan test
+php artisan octane:reload
+php artisan test
+php artisan test Tests\Unit\CalculoContratoTest
+php artisan test Tests\Unit\CalculoContratoTest.php
+php artisan test tests\Unit\CalculoContratoTest.php
+php artisan test tests\Unit\CalculoContratoTest.php
+php artisan test tests\Unit\CalculoContratoTest.php
+php artisan test CalculoContratoTest.php
+php artisan test Unit\CalculoContratoTest.php
+php artisan test 
+php artisan test 
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+php artisan test 
+php artisan test 
+php artisan test 
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+ls
+ls
+./assign-role.sh 
+./assign-role.sh 
+php artisan octane:reload
+php artisan cache:clear
+php artisan route:clear
+php artisan config:clear
+php artisan view:clear
+php artisan optimize:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+php artisan octane:reload
+php artisan octane:reload
+php artisan test 
+./assign-role.sh 
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+exit

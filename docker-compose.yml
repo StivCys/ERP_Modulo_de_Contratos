@@ -21,14 +21,12 @@ services:
     container_name: laravel_octane_vue_db
     # restart: always
     environment:
-      MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: laravel
-      MYSQL_PASSWORD: laravel
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - laravel_octane_vue_network-2
 
@@ -46,7 +44,7 @@ services:
 
 networks:
   laravel_octane_vue_network-2:
-    
+
 
 volumes:
   db_data:
