@@ -37,3 +37,13 @@ d
 \App\Models\User::first()?->assignRole('admin');
 \App\Models\User::first()?->assignRole('admin');
 \App\Models\User::first()?->assignRole('admin');
+Customer::factory()->count(10)->create();
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(10)->create();
+use App\Domains\Customer\Models\Customer;
+use App\Domains\Customer\Models\Customer;
+Customer::factory()->count(10)->create();
+use App\Domains\Cliente\Models\Customer;
+Cliente::factory()->count(10)->create();
+use App\Domains\Cliente\Models\Cliente;
+Cliente::factory()->count(10)->create();

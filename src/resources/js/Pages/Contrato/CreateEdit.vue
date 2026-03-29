@@ -223,7 +223,7 @@ console.log(props.clientes);
                                         disabled
                                     />
 
-                                    <div class="relative">
+                                    <div v-if="!props.contrato" class="relative">
                                     <input
                                         v-model="search"
                                         @focus="showDropdown = true"

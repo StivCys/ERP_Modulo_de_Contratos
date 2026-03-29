@@ -22,11 +22,12 @@ O projeto trata-se de um sistema ERP focado na gestão de contratos, clientes e 
 
 # Instalação do projeto
 
+# 1. Configurar ambiente
 ```bash
-docker compose build
-```
+cp .env.example .env
+``` 
 
-# ajustar .env substituindo as variaveis
+# Editar:
 
 ```.env
 APP_URL=http://<SEU-IP-OU-localhost>:8000
@@ -43,21 +44,38 @@ DB_PASSWORD=laravel
 # SE USAR IP PRECISA CONFIGURAR O vite.config.js TAMBEM !!!
 
 ```javascript
-    server: {
-        host: '[IP_ADDRESS]',
-        port: 5173,
-        strictPort: true,
-        hmr: {
-            host: '[IP_ADDRESS]',
-        },
+    export default defineConfig({
+  server: {
+    host: '0.0.0.0', // <- importante (não usar IP fixo aqui)
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      host: 'SEU_IP_AQUI',
     },
+  },
+});
 ```
 
-# subir o container
+# 2. Buildar a imagem
+
+```bash
+docker compose build
+```
+
+# 3. subir o container
 
 ```basch
 docker compose up -d
 ```
+
+
+# 4. Acessar: http://localhost:8000 ou http://<SEU-IP>:8000
+
+
+# 5. Acesso
+ Login:     test@example.com 
+
+ senha:     password
 
 ---
 

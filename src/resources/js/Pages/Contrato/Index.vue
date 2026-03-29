@@ -86,10 +86,19 @@ const deleteContrato = (contrato) => {
                 </div>
 
                 <!-- Filters -->
-                <div class="flex flex-wrap gap-4 mb-6">
-                    <input v-model="search" @keyup.enter="filter" type="text" placeholder="Buscar por Cliente" class="w-full sm:w-auto border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" />
-                    <input v-model="dateStart" type="date" class="border-gray-300 rounded-md shadow-sm" />
-                    <input v-model="dateEnd" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                <div class="flex flex-wrap gap-4 mb-6 items-end">
+                    <div class="flex flex-col w-full sm:w-auto">
+                        <label class="text-xs text-transparent mb-1 hidden sm:block">&nbsp;</label>
+                        <input v-model="search" @keyup.enter="filter" type="text" placeholder="Buscar por Cliente" class="w-full border-gray-300 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500" />
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-xs text-gray-600 mb-1 font-medium">Data de Cadastro Inicio</label>
+                        <input v-model="dateStart" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-xs text-gray-600 mb-1 font-medium">Data de Cadastro Fim</label>
+                        <input v-model="dateEnd" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                    </div>
                     <button @click="filter" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Buscar</button>
                     <button @click="clearFilter" class="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300">Limpar</button>
                 </div>
