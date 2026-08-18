@@ -9,6 +9,7 @@ use App\Domains\Contrato\Actions\UpdateRegraAdicional;
 use App\Domains\Contrato\Actions\DeleteRegraAdicional;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use App\Domains\Servico\Actions\GetServicoOptionsAction;
 
 class RegraAdicionalController extends Controller
 {
@@ -19,9 +20,11 @@ class RegraAdicionalController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(GetServicoOptionsAction $servicosAction)
     {
-        return Inertia::render('RegraAdicional/CreateEdit');
+        return Inertia::render('RegraAdicional/CreateEdit', [
+            'servicos' => $servicosAction->execute(),
+        ]);
     }
 
     public function store(Request $request, CreateRegraAdicional $action)
@@ -33,10 +36,15 @@ class RegraAdicionalController extends Controller
             ->with('success', 'Regra criada com sucesso!');
     }
 
-    public function edit($id, UpdateRegraAdicional $action)
-    {
+
+    public function edit(
+        $id,
+        UpdateRegraAdicional $action,
+        GetServicoOptionsAction $servicosAction
+    ) {
         return Inertia::render('RegraAdicional/CreateEdit', [
-            'regra' => $action->find($id)
+            'regra' => $action->find($id),
+            'servicos' => $servicosAction->execute(),
         ]);
     }
 

@@ -307,3 +307,40 @@ php artisan octane:reload
 php artisan octane:reload
 php artisan octane:reload
 exit
+php artisan tinker
+php artisan tinker
+ls
+ls  app/Domains/Customer/Models/Customer.php
+cd app/
+ls
+cd Domains/
+ls
+ls
+cd ..
+cd ..
+php artisan tinker
+php artisan tinker
+php artisan octane reload
+php artisan octane:reload
+php artisan octane:reload
+php artisan octane:reload
+composer require barryvdh/laravel-debugbar - dev
+composer require barryvdh/laravel-debugbar - dev
+composer require barryvdh/laravel-debugbar --dev
+php artisan octane:reload
+php artisan octane:reload
+exit
+php artisan make:job TestQueueJob
+php artisan octane:reload
+php artisan tinker
+php artisan tinker
+exit
+php artisan tinker
+php -m | grep redis
+php artisan tinker
+exit
+php artisan tinker
+exit
+php artisan queue:work
+php artisan queue:work
+exit

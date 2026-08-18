@@ -47,3 +47,52 @@ use App\Domains\Cliente\Models\Customer;
 Cliente::factory()->count(10)->create();
 use App\Domains\Cliente\Models\Cliente;
 Cliente::factory()->count(10)->create();
+dispatch(function () {
+    \Log::info('Fila funcionando 🚀');
+});
+dispatch(function () {
+    \Log::info('Fila funcionando 🚀');
+});
+dispatch(function () {
+    \Log::info('Fila funcionando');
+});
+dispatch(function () {
+    \Log::info('Fila funcionando');
+});
+dispatch(function () {
+    \Log::info('Fila funcionando ');
+});
+TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+exi
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+exit
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+\App\Jobs\TestQueueJob::dispatch();
+Schema::hasTable('relatorio_gerados');
+Schema::hasTable('relatorios_gerados');

@@ -16,7 +16,7 @@ class ClienteController extends Controller
     {
         return inertia('Cliente/Index', [
             'clientes' => $action->execute(),
-            'filters' => request()->only(['search', 'date_start', 'date_end']),
+            'filters' => request()->only(['search', 'date_start', 'date_end', 'ativo']),
         ]);
     }
 

@@ -1,6 +1,8 @@
 FROM php:8.3-cli
 
 RUN apt-get update && apt-get install -y \
+    netcat-openbsd \
+    lsof \
     git curl unzip \
     libzip-dev \
     libpng-dev \
@@ -14,8 +16,8 @@ RUN apt-get update && apt-get install -y \
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-RUN pecl install swoole \
-    && docker-php-ext-enable swoole
+RUN pecl install swoole redis \
+    && docker-php-ext-enable swoole redis
 
 WORKDIR /var/www
 

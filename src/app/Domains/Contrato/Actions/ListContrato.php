@@ -28,6 +28,10 @@ class ListContrato
             $query->whereDate('created_at', '<=', request('date_end'));
         }
 
+        if (request()->has('status') && request('status') != '') {
+            $query->where('status', request('status'));
+        }
+
         return $query->paginate(10)->withQueryString();
     }
 }

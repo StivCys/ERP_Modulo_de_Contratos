@@ -41,6 +41,29 @@ services:
       - "5173:5173"
     networks:
       - laravel_octane_vue_network-2
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel_octane_vue_network-2
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel_queue
+    user: "${UID}:${GID}"
+    volumes:
+      - ./src:/var/www
+      - ./docker/php/queue-start.sh:/queue-start.sh
+    command: sh /queue-start.sh
+    depends_on:
+      - redis
+      - db
+    entrypoint: []
+    networks:
+      - laravel_octane_vue_network-2
 
 networks:
   laravel_octane_vue_network-2:

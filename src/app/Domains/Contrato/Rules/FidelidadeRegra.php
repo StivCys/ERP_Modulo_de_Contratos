@@ -8,7 +8,7 @@ use Carbon\Carbon;
 
 class FidelidadeRegra implements RegraContratoInterface
 {
-    public function __construct(private array $parametros)
+    public function __construct(private string $nome, private array $parametros)
     {
     }
 
@@ -30,7 +30,7 @@ class FidelidadeRegra implements RegraContratoInterface
                 $valorAtual -= $desc;
 
                 $detalhes[] = [
-                    'regra' => 'fidelidade',
+                    'regra' => $this->nome,
                     'tipo' => 'desconto',
                     'valor' => $desc,
                     'descricao' => "Desconto fidelidade ({$meses} meses)"

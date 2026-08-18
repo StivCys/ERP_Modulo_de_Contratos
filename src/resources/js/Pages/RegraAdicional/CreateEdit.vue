@@ -38,6 +38,7 @@
                                     <option value="desconto_progressivo">Desconto Progressivo (Ganha Y% * Qtd, teto Z%)</option>
                                     <option value="servico_especifico">Acrésc/Desc por Serviço (Ex: +R$50 se incluir Setup)</option>
                                     <option value="fidelidade">Fidelidade (Desconto após X meses de contrato ativo)</option>
+                                    <option value="ticket_minimo">Ticket Mínimo (Garante valor mínimo no contrato)</option>
                                 </select>
                                 <div v-if="form.errors.tipo_regra" class="text-red-500 text-sm mt-1">{{ form.errors.tipo_regra }}</div>
                             </div>
@@ -72,8 +73,17 @@
 
                             <div v-if="form.tipo_regra === 'servico_especifico'" class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700">ID do Serviço Específico</label>
-                                    <input v-model="formParams.servico_id" type="number" min="1" class="mt-1 block w-full border rounded" required />
+                                    <label class="block text-sm font-medium text-gray-700">Serviço Específico</label>
+                                    <select v-model="formParams.servico_id" class="mt-1 block w-full border rounded" required>
+                                        <option value="" disabled>Selecione um serviço...</option>
+                                        <option 
+                                            v-for="servico in servicos" 
+                                            :key="servico.id" 
+                                            :value="servico.id"
+                                            >
+                                            {{ servico.nome }} - R$ {{ servico.valor }}
+                                        </option>
+                                    </select>
                                 </div>
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Acréscimo Fixo (R$)</label>
@@ -93,6 +103,13 @@
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700">Desconto Percentual (%)</label>
                                     <input v-model="formParams.desconto_percentual" type="number" step="0.01" min="0" class="mt-1 block w-full border rounded" required />
+                                </div>
+                            </div>
+
+                            <div v-if="form.tipo_regra === 'ticket_minimo'" class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700">Valor Mínimo (R$)</label>
+                                    <input v-model="formParams.valor_minimo" type="number" step="0.01" min="0" class="mt-1 block w-full border rounded" required />
                                 </div>
                             </div>
 
@@ -120,6 +137,7 @@ import { reactive, watch } from 'vue';
 
 const props = defineProps({
     regra: Object,
+    servicos: Array,
 });
 
 // JSON parameters model

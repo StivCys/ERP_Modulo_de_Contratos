@@ -12,12 +12,14 @@ const props = defineProps({
 const search = ref(props.filters?.search || '')
 const dateStart = ref(props.filters?.date_start || '')
 const dateEnd = ref(props.filters?.date_end || '')
+const status = ref(props.filters?.status || '')
 
 const filter = () => {
     router.get(route('contrato.index'), {
         search: search.value,
         date_start: dateStart.value,
         date_end: dateEnd.value,
+        status: status.value,
     }, { preserveState: true, replace: true })
 }
 
@@ -25,6 +27,7 @@ const clearFilter = () => {
     search.value = ''
     dateStart.value = ''
     dateEnd.value = ''
+    status.value = ''
     filter()
 }
 
@@ -67,6 +70,8 @@ const deleteContrato = (contrato) => {
         router.delete(route('contrato.destroy', contrato.id))
     }
 }
+
+// console.log(props.contratos);
 </script>
 
 <template>
@@ -98,6 +103,14 @@ const deleteContrato = (contrato) => {
                     <div class="flex flex-col">
                         <label class="text-xs text-gray-600 mb-1 font-medium">Data de Cadastro Fim</label>
                         <input v-model="dateEnd" type="date" class="border-gray-300 rounded-md shadow-sm" />
+                    </div>
+                    <div class="flex flex-col">
+                        <label class="text-xs text-gray-600 mb-1 font-medium">Status</label>
+                        <select v-model="status" class="border-gray-300 rounded-md shadow-sm">
+                            <option value="">Todos</option>
+                            <option value="ativo">Ativo</option>
+                            <option value="cancelado">Cancelado</option>
+                        </select>
                     </div>
                     <button @click="filter" class="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">Buscar</button>
                     <button @click="clearFilter" class="px-4 py-2 text-gray-700 bg-gray-200 rounded hover:bg-gray-300">Limpar</button>
@@ -144,7 +157,7 @@ const deleteContrato = (contrato) => {
                                             </div>
                                             <span v-else class="text-gray-500 text-sm">Nenhuma</span>
                                         </td>
-                                        <td class="px-4 py-2 border-b flex gap-2">
+                                        <td class="px-4 py-2 border-b">
                                             <button @click="editContrato(contrato)" class="px-2 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600">
                                                 Edit / Detalhes
                                             </button>
@@ -155,11 +168,16 @@ const deleteContrato = (contrato) => {
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="flex items-center justify-center gap-2 mt-4" v-if="contratos.data && contratos.data.length > 0">
-                                <button v-for="link in contratos.links" :key="link.label" v-html="link.label"
-                                    :disabled="!link.url" @click="link.url && router.visit(link.url)"
-                                    class="px-3 py-1 border rounded"
-                                    :class="{ 'bg-blue-500 text-white': link.active }" />
+                            <div class="flex flex-col sm:flex-row items-center justify-between mt-4" v-if="contratos.data && contratos.data.length > 0">
+                                <div class="text-sm text-gray-500 mb-2 sm:mb-0">
+                                    Exibindo {{ contratos.from || 0 }} a {{ contratos.to || 0 }} de {{ contratos.total }} resultados
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <button v-for="link in contratos.links" :key="link.label" v-html="link.label"
+                                        :disabled="!link.url" @click="link.url && router.visit(link.url)"
+                                        class="px-3 py-1 border rounded"
+                                        :class="{ 'bg-blue-500 text-white': link.active }" />
+                                </div>
                             </div>
                         </div>
                     </div>

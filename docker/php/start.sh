@@ -32,7 +32,7 @@ try {
     exit(1);
 }
 "; do
-  echo "Banco ainda não respondeu...aaaaaaaaaa"
+  echo "Banco ainda não respondeu..."
   sleep 2
 done
 
@@ -44,8 +44,8 @@ php artisan migrate --force
 echo "Rodando seeders..."
 php artisan db:seed --force || true
 
-echo "Matando processos antigos..."
-kill -9 $(lsof -t -i:8000) 2>/dev/null || true
+echo "Parando Octane (se estiver rodando)..."
+php artisan octane:stop 2>/dev/null || true
 
 echo "Iniciando Octane..."
-php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
+exec php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000

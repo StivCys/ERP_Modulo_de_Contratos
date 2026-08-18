@@ -8,7 +8,7 @@ use App\Domains\Contrato\DTOs\ResultadoRegraDTO;
 
 class ServicoEspecificoRegra implements RegraContratoInterface
 {
-    public function __construct(private array $parametros)
+    public function __construct(private string $nome, private array $parametros)
     {
     }
 
@@ -26,7 +26,7 @@ class ServicoEspecificoRegra implements RegraContratoInterface
                 $valorAtual += $acrescimo;
 
                 $detalhes[] = [
-                    'regra' => 'servico_especifico',
+                    'regra' => $this->nome,
                     'tipo' => 'acrescimo',
                     'valor' => $acrescimo,
                     'descricao' => "Acréscimo por serviço específico"
@@ -38,7 +38,7 @@ class ServicoEspecificoRegra implements RegraContratoInterface
                 $valorAtual -= $desc;
 
                 $detalhes[] = [
-                    'regra' => 'servico_especifico',
+                    'regra' => $this->nome,
                     'tipo' => 'desconto',
                     'valor' => $desc,
                     'descricao' => "Desconto por serviço específico"

@@ -25,7 +25,7 @@ class ContratoController extends Controller
     {
         return inertia('Contrato/Index', [
             'contratos' => $action->execute(),
-            'filters' => request()->only(['search', 'date_start', 'date_end']),
+            'filters' => request()->only(['search', 'date_start', 'date_end', 'status']),
         ]);
     }
 

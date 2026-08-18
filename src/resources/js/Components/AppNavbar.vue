@@ -10,7 +10,7 @@
                 <Link
                     v-if="item.type === 'link'"
                     :href="route(item.route)"
-                    class="nav-item"
+                    class="nav-item flex items-center gap-2"
                     :class="{ active: $page.component.startsWith(item.key) }"
                 >
                     <component :is="icons[item.icon]" :size="16" />

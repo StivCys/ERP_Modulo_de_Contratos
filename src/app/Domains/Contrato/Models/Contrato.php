@@ -5,11 +5,14 @@ namespace App\Domains\Contrato\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Domains\Cliente\Models\Cliente;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Domains\Contrato\Services\ContratoCalculoService;
 
 class Contrato extends Model
 {
     use HasFactory;
+
     protected $guarded = [];
+
     protected $fillable = [
         "cliente_id",
         "data_inicio",
@@ -17,7 +20,16 @@ class Contrato extends Model
         "status",
     ];
 
-    protected $appends = ['valor_total', 'desconto_aplicado', 'regras_aplicadas'];
+    protected $appends = [
+        'valor_total',
+        'desconto_aplicado',
+        'regras_aplicadas'
+    ];
+
+    /**
+     * Cache do cálculo (evita recalcular 3x)
+     */
+    protected ?array $calculoCache = null;
 
     protected static function newFactory()
     {
@@ -34,21 +46,33 @@ class Contrato extends Model
         return $this->hasMany(ContratoItems::class);
     }
 
+    /**
+     * Centraliza o cálculo e evita repetição
+     */
+    protected function getCalculo(): array
+    {
+        if (!$this->calculoCache) {
+            $this->loadMissing('items'); // resolve lazy loading
+
+            $service = app(ContratoCalculoService::class);
+            $this->calculoCache = $service->calcular($this);
+        }
+
+        return $this->calculoCache;
+    }
+
     public function getValorTotalAttribute()
     {
-        $service = new \App\Domains\Contrato\Services\ContratoCalculoService();
-        return $service->calcular($this)['valor_final'];
+        return $this->getCalculo()['valor_final'];
     }
 
     public function getDescontoAplicadoAttribute()
     {
-        $service = new \App\Domains\Contrato\Services\ContratoCalculoService();
-        return $service->calcular($this)['teve_desconto_ou_acrescimo'];
+        return $this->getCalculo()['teve_desconto_ou_acrescimo'];
     }
 
     public function getRegrasAplicadasAttribute()
     {
-        $service = new \App\Domains\Contrato\Services\ContratoCalculoService();
-        return $service->calcular($this)['regras_aplicadas'];
+        return $this->getCalculo()['regras_aplicadas'];
     }
 }

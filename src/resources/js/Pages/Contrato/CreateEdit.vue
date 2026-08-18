@@ -114,7 +114,7 @@ const computedSimulation = computed(() => {
             switch (regra.tipo_regra) {
                 case 'quantidade_servicos':
                     if (form.items.length >= (params.quantidade_minima || 0)) {
-                        let desc = base * ((params.desconto_percentual || 0) / 100);
+                        let desc = finalValue * ((params.desconto_percentual || 0) / 100);
                         finalValue -= desc;
                         detalhes.push({nome: regra.nome, desc: desc.toFixed(2), tipo: 'desconto'});
                     }
@@ -124,7 +124,7 @@ const computedSimulation = computed(() => {
                     let maxPct = params.desconto_maximo_percentual || 100;
                     let descProg = Math.min(pctTotal, maxPct);
                     if (descProg > 0) {
-                        let desc = base * (descProg / 100);
+                        let desc = finalValue * (descProg / 100);
                         finalValue -= desc;
                         detalhes.push({nome: regra.nome, desc: desc.toFixed(2), tipo: 'desconto'});
                     }
@@ -137,7 +137,7 @@ const computedSimulation = computed(() => {
                             detalhes.push({nome: regra.nome, desc: parseFloat(params.acrescimo_fixo).toFixed(2), tipo: 'acrescimo'});
                         }
                         if (params.desconto_percentual && params.desconto_percentual > 0) {
-                            let d2 = base * (params.desconto_percentual / 100);
+                            let d2 = finalValue * (params.desconto_percentual / 100);
                             finalValue -= d2;
                             detalhes.push({nome: regra.nome, desc: d2.toFixed(2), tipo: 'desconto'});
                         }
@@ -149,10 +149,17 @@ const computedSimulation = computed(() => {
                         let end = form.data_fim ? new Date(form.data_fim) : new Date();
                         let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
                         if (months >= (params.meses_fidelidade || 1)) {
-                            let d3 = base * (params.desconto_percentual / 100);
+                            let d3 = finalValue * (params.desconto_percentual / 100);
                             finalValue -= d3;
                             detalhes.push({nome: regra.nome, desc: d3.toFixed(2), tipo: 'desconto'});
                         }
+                    }
+                    break;
+                case 'ticket_minimo':
+                    if (finalValue < params.valor_minimo) {
+                        let d4 = params.valor_minimo - finalValue;
+                        finalValue += d4;
+                        detalhes.push({nome: regra.nome, desc: d4.toFixed(2), tipo: 'acrescimo'});
                     }
                     break;
             }

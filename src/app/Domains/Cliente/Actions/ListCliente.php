@@ -32,6 +32,10 @@ class ListCliente
             $query->whereDate('created_at', '<=', request('date_end'));
         }
 
+        if (request()->has('ativo') && request('ativo') != '') {
+            $query->where('ativo', request('ativo'));
+        }
+
         return $query->paginate(10)->withQueryString();
 
     }

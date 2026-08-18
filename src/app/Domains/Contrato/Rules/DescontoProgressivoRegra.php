@@ -9,7 +9,7 @@ use App\Domains\Contrato\Contracts\RegraContratoInterface;
 
 class DescontoProgressivoRegra implements RegraContratoInterface
 {
-    public function __construct(private array $parametros)
+    public function __construct(private string $nome, private array $parametros)
     {
     }
 
@@ -27,7 +27,7 @@ class DescontoProgressivoRegra implements RegraContratoInterface
             $valorAtual -= $desc;
 
             $detalhes[] = [
-                'regra' => 'desconto_progressivo',
+                'regra' => $this->nome,
                 'tipo' => 'desconto',
                 'valor' => $desc,
                 'descricao' => "Desconto progressivo de {$pct}%"

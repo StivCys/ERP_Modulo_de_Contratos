@@ -29,6 +29,22 @@ class RolesAndPermissionsSeeder extends Seeder
             'contrato.create',
             'contrato.edit',
             'contrato.delete',
+            'regra-adicional.view',
+            'regra-adicional.create',
+            'regra-adicional.edit',
+            'regra-adicional.delete',
+            'relatorio.view',
+            'relatorio.create',
+            'relatorio.edit',
+            'relatorio.delete',
+            'users.view',
+            'users.create',
+            'users.edit',
+            'users.delete',
+            'roles.view',
+            'roles.create',
+            'roles.edit',
+            'roles.delete',
         ];
 
         foreach ($permissions as $permission) {

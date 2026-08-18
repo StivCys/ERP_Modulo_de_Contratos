@@ -39,7 +39,13 @@ export const menuConfig = [
         label: 'Regras de Negócio',
         route: 'regra-adicional.index',
         icon: 'Percent',
-        permission: 'contrato.view', // User can fix Spatie mapping later
+        permission: 'regra-adicional.view', // User can fix Spatie mapping later
+      },
+      {
+        label: 'Meus Relatórios',
+        route: 'relatorios.index',
+        icon: 'FileText',
+        permission: 'relatorio.view', // User can fix Spatie mapping later
       },
     ],
   },
@@ -54,15 +60,15 @@ export const menuConfig = [
   //     { label: 'NFS-e', route: 'fiscal.nfse', icon: 'Receipt', permission: 'nfse.view' },
   //   ],
   // },
-  // {
-  //   key: 'configuracoes',
-  //   label: 'Configurações',
-  //   type: 'group',
-  //   icon: 'Settings',
-  //   role: 'admin', // alternativa: checar por role ao invés de permission
-  //   children: [
-  //     { label: 'Usuários', route: 'users.index', permission: 'users.manage' },
-  //     { label: 'Perfis', route: 'roles.index', permission: 'roles.manage' },
-  //   ],
-  // },
+  {
+    key: 'configuracoes',
+    label: 'Configurações',
+    type: 'group',
+    icon: 'Settings',
+    permission: 'users.view', // User can fix Spatie mapping later
+    children: [
+      { label: 'Usuários', route: 'users.index', permission: 'users.view' },
+      { label: 'Perfis de Acesso', route: 'roles.index', permission: 'roles.view' },
+    ],
+  },
 ]

@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 class QuantidadeServicosRegra implements RegraContratoInterface
 {
-    public function __construct(private array $parametros)
+    public function __construct(private string $nome, private array $parametros)
     {
     }
 
@@ -24,7 +24,7 @@ class QuantidadeServicosRegra implements RegraContratoInterface
             $valorAtual -= $desconto;
 
             $detalhes[] = [
-                'regra' => 'quantidade_servicos',
+                'regra' => $this->nome,
                 'tipo' => 'desconto',
                 'valor' => $desconto,
                 'descricao' => "Desconto de {$descontoPct}% por ter {$qtdMin}+ serviços"
