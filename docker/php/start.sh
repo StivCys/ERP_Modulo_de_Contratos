@@ -44,8 +44,16 @@ php artisan migrate --force
 echo "Rodando seeders..."
 php artisan db:seed --force || true
 
-echo "Parando Octane (se estiver rodando)..."
-php artisan octane:stop 2>/dev/null || true
+PHP_SERVER="${PHP_SERVER:-octane}"
 
-echo "Iniciando Octane..."
-exec php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
+if [ "$PHP_SERVER" = "fpm" ]; then
+  echo "Iniciando PHP-FPM..."
+  exec php-fpm -F
+else
+  echo "Parando Octane (se estiver rodando)..."
+  php artisan octane:stop 2>/dev/null || true
+
+  echo "Iniciando Octane..."
+  exec php artisan octane:start --server=swoole --host=0.0.0.0 --port=8000
+fi
+

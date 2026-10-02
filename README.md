@@ -59,15 +59,29 @@ DB_PASSWORD=laravel
 # 2. Buildar a imagem
 
 ```bash
-docker compose build
+make build
+# ou: docker compose build
 ```
 
-# 3. subir o container
+# 3. Subir os containers (Octane ou PHP-FPM)
 
-```basch
-docker compose up -d
+Para executar com **Laravel Octane + Swoole**:
+```bash
+make octane
 ```
 
+Para executar com **Nginx + PHP-FPM**:
+```bash
+make fpm
+```
+
+A alternância entre os dois modos é imediata e preserva todos os dados do banco e dependências.
+
+Comandos de apoio:
+```bash
+make logs   # Visualizar logs em tempo real
+make down   # Parar os containers com segurança
+```
 
 # 4. Acessar: http://localhost:8000 ou http://<SEU-IP>:8000
 

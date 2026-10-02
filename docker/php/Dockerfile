@@ -1,4 +1,4 @@
-FROM php:8.3-cli
+FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
     netcat-openbsd \
@@ -34,6 +34,6 @@ COPY src/ .
 COPY docker/php/start.sh /start.sh
 RUN chmod +x /start.sh
 
-EXPOSE 8000
+EXPOSE 8000 9000
 
 ENTRYPOINT ["/start.sh"]
