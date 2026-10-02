@@ -1,9 +1,11 @@
 # ERP (Módulo de Contratos)
 
 ## Descrição do projeto
+
 O projeto trata-se de um sistema ERP focado na gestão de contratos, clientes e prestação de serviços. Ele permite a criação de contratos com diferentes serviços, aplicando regras de negócio dinâmicas como descontos por volume e acréscimos para serviços específicos.
 
 ## Funcionalidades implementadas
+
 - **Gestão de Clientes:** CRUD completo de clientes (Nome, E-mail, CPF/CNPJ, Status).
 - **Gestão de Serviços:** Cadastro e manutenção de serviços prestados.
 - **Gestão de Contratos:** Criação, edição e exclusão de contratos associados a clientes.
@@ -12,6 +14,7 @@ O projeto trata-se de um sistema ERP focado na gestão de contratos, clientes e 
 - **API RESTful:** Endpoints protegidos para consumo externo.
 
 ## Tecnologias utilizadas
+
 - **Backend:** PHP 8.2, Laravel 11, Laravel Octane, Sanctum (Autenticação).
 - **Frontend:** Vue.js 3, Inertia.js, Tailwind CSS.
 - **Banco de Dados:** MySQL (via Docker).
@@ -23,9 +26,10 @@ O projeto trata-se de um sistema ERP focado na gestão de contratos, clientes e 
 # Instalação do projeto
 
 # 1. Configurar ambiente
+
 ```bash
 cp .env.example .env
-``` 
+```
 
 # Editar:
 
@@ -44,13 +48,13 @@ DB_PASSWORD=laravel
 # SE USAR IP PRECISA CONFIGURAR O vite.config.js TAMBEM !!!
 
 ```javascript
-    export default defineConfig({
+export default defineConfig({
   server: {
-    host: '0.0.0.0', // <- importante (não usar IP fixo aqui)
+    host: "0.0.0.0", // <- importante (não usar IP fixo aqui)
     port: 5173,
     strictPort: true,
     hmr: {
-      host: 'SEU_IP_AQUI',
+      host: "SEU_IP_AQUI",
     },
   },
 });
@@ -66,11 +70,13 @@ make build
 # 3. Subir os containers (Octane ou PHP-FPM)
 
 Para executar com **Laravel Octane + Swoole**:
+
 ```bash
 make octane
 ```
 
 Para executar com **Nginx + PHP-FPM**:
+
 ```bash
 make fpm
 ```
@@ -78,6 +84,7 @@ make fpm
 A alternância entre os dois modos é imediata e preserva todos os dados do banco e dependências.
 
 Comandos de apoio:
+
 ```bash
 make logs   # Visualizar logs em tempo real
 make down   # Parar os containers com segurança
@@ -85,11 +92,11 @@ make down   # Parar os containers com segurança
 
 # 4. Acessar: http://localhost:8000 ou http://<SEU-IP>:8000
 
-
 # 5. Acesso
- Login:     test@example.com 
 
- senha:     password
+Login: test@example.com
+
+senha: password
 
 ---
 
@@ -113,9 +120,10 @@ Content-Type: application/json
 ```
 
 **Resposta:**
+
 ```json
 {
-    "token": "1|abc123xyz..."
+  "token": "1|abc123xyz..."
 }
 ```
 
@@ -148,21 +156,22 @@ GET /api/user
 
 #### Clientes
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/clientes` | Listar (paginado) |
-| POST | `/api/clientes` | Criar |
-| GET | `/api/clientes/{id}` | Buscar por ID |
-| PUT | `/api/clientes/{id}` | Atualizar |
-| DELETE | `/api/clientes/{id}` | Remover |
+| Método | Endpoint             | Descrição         |
+| ------ | -------------------- | ----------------- |
+| GET    | `/api/clientes`      | Listar (paginado) |
+| POST   | `/api/clientes`      | Criar             |
+| GET    | `/api/clientes/{id}` | Buscar por ID     |
+| PUT    | `/api/clientes/{id}` | Atualizar         |
+| DELETE | `/api/clientes/{id}` | Remover           |
 
 **Body para criação:**
+
 ```json
 {
-    "nome": "Nome do Cliente",
-    "email": "cliente@email.com",
-    "cpf_cnpj": "123.456.789-00",
-    "ativo": "sim"
+  "nome": "Nome do Cliente",
+  "email": "cliente@email.com",
+  "cpf_cnpj": "123.456.789-00",
+  "ativo": "sim"
 }
 ```
 
@@ -170,48 +179,50 @@ GET /api/user
 
 #### Contratos
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/api/contratos` | Listar (paginado) |
-| POST | `/api/contratos` | Criar |
-| GET | `/api/contratos/{id}` | Buscar com histórico |
-| PUT | `/api/contratos/{id}` | Atualizar |
-| DELETE | `/api/contratos/{id}` | Remover |
+| Método | Endpoint              | Descrição            |
+| ------ | --------------------- | -------------------- |
+| GET    | `/api/contratos`      | Listar (paginado)    |
+| POST   | `/api/contratos`      | Criar                |
+| GET    | `/api/contratos/{id}` | Buscar com histórico |
+| PUT    | `/api/contratos/{id}` | Atualizar            |
+| DELETE | `/api/contratos/{id}` | Remover              |
 
 **Body para criação:**
+
 ```json
 {
-    "cliente_id": 1,
-    "data_inicio": "2026-01-01",
-    "data_fim": "2026-12-31",
-    "status": "ativo",
-    "items": [
-        {
-            "servico_id": 1,
-            "quantidade": 2
-        }
-    ]
+  "cliente_id": 1,
+  "data_inicio": "2026-01-01",
+  "data_fim": "2026-12-31",
+  "status": "ativo",
+  "items": [
+    {
+      "servico_id": 1,
+      "quantidade": 2
+    }
+  ]
 }
 ```
 
 **Body para atualização** (inclua `id` dos items existentes para preservar histórico):
+
 ```json
 {
-    "cliente_id": 1,
-    "data_inicio": "2026-01-01",
-    "data_fim": "2026-12-31",
-    "status": "ativo",
-    "items": [
-        {
-            "id": 5,
-            "servico_id": 1,
-            "quantidade": 3
-        },
-        {
-            "servico_id": 2,
-            "quantidade": 1
-        }
-    ]
+  "cliente_id": 1,
+  "data_inicio": "2026-01-01",
+  "data_fim": "2026-12-31",
+  "status": "ativo",
+  "items": [
+    {
+      "id": 5,
+      "servico_id": 1,
+      "quantidade": 3
+    },
+    {
+      "servico_id": 2,
+      "quantidade": 1
+    }
+  ]
 }
 ```
 
@@ -229,13 +240,12 @@ $token = $user->createToken('api-test')->plainTextToken;
 echo $token;
 ```
 
-
 # Testes
 
-Apos rodar os testes o usuario adm pode perder as permissoes devido ao refreshdatabase, 
+Apos rodar os testes o usuario adm pode perder as permissoes devido ao refreshdatabase,
 entao será preciso entrar no container e
 rodar o o arquivo assign-role.sh para atribuir as permissoes ao usuario adm
 
 ```bash
 ./assign-role.sh
-``` 
+```
