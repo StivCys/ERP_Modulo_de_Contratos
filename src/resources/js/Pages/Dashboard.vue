@@ -89,8 +89,8 @@ const chartOptions = {
   <Head title="Dashboard" />
 
   <AuthenticatedLayout>
-    <div class="py-8 bg-gray-50/50 min-h-screen">
-      <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-6">
+    <div class="py-2 bg-gray-50/50 min-h-screen">
+      <div class="max-w-8xl p-6">
         
         <div class="flex items-center justify-between mb-6">
           <h2 class="text-2xl font-bold tracking-tight text-gray-900">

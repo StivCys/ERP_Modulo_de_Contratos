@@ -20,4 +20,4 @@ echo "Banco pronto!"
 
 echo "Iniciando queue worker..."
 
-php artisan queue:work --tries=3 --timeout=90
+php artisan queue:work --queue=relatorios --tries=3 --timeout=120

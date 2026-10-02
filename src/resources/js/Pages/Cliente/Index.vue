@@ -126,8 +126,8 @@ const deleteCliente = (cliente) => {
     <Head title="Clientes" />
 
     <AuthenticatedLayout>
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="py-2">
+            <div class="max-w-8xl p-6">
                 
                 <!-- Header com ações -->
                 <div class="flex flex-wrap justify-between items-center gap-3 mb-6">

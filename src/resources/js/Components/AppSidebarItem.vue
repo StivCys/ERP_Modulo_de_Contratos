@@ -1,11 +1,22 @@
 <template>
     <div>
         <!-- Item simples -->
-        <Link v-if="!item.children?.length" :href="safeRoute(item.route)" class="sidebar-item  flex items-center gap-2"
-            :class="{ active: $page.url.startsWith('/' + item.route) }">
-            <component v-if="item.icon" :is="icons[item.icon]" :size="15" />
-            {{ item.label }}
-        </Link>
+        <Link
+    v-if="!item.children?.length"
+    :href="safeRoute(item.route)"
+    class="sidebar-item flex items-center gap-2"
+    :class="isActive(item.route)
+        ? 'bg-blue-100 text-blue-700 font-medium'
+        : 'text-gray-700 hover:bg-gray-100'"
+        >
+    <component
+        v-if="item.icon"
+        :is="icons[item.icon]"
+        :size="15"
+    />
+
+    {{ item.label }}
+</Link>
 
         <!-- Item com sub-itens -->
         <div v-else>
@@ -27,7 +38,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Link } from '@inertiajs/vue3'
+import { Link , usePage} from '@inertiajs/vue3'
 import { ChevronRight } from 'lucide-vue-next'
 import * as LucideIcons from 'lucide-vue-next'
 import AppSidebarItem from './AppSidebarItem.vue' // importa a si mesmo para recursão
@@ -36,6 +47,7 @@ import AppSidebarItem from './AppSidebarItem.vue' // importa a si mesmo para rec
 defineProps({ item: Object })
 const open = ref(false)
 const icons = LucideIcons
+const page = usePage()
 
 // console.log(Ziggy)
 // verifica se a rota existe no Ziggy antes de tentar resolver
@@ -47,4 +59,27 @@ const safeRoute = (name) => {
         return '##'
     }
 }
+
+const isActive = (routeName) => {
+    try {
+        const routeUrl = new URL(
+            route(routeName),
+            window.location.origin
+        )
+
+        const currentUrl = new URL(
+            page.url,
+            window.location.origin
+        )
+
+        return (
+            currentUrl.pathname === routeUrl.pathname ||
+            currentUrl.pathname.startsWith(routeUrl.pathname + '/')
+        )
+    } catch (error) {
+        console.error('Erro ao verificar rota ativa:', routeName, error)
+        return false
+    }
+}
+
 </script>

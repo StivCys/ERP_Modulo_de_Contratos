@@ -46,8 +46,8 @@ const deleteRole = (role) => {
     <Head title="Perfis de Acesso" />
 
     <AuthenticatedLayout>
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="py-2">
+            <div class="max-w-8xl p-6">
                 
                 <div class="flex flex-wrap justify-between items-center gap-3 mb-6">
                     <h2 class="text-xl font-semibold leading-tight text-gray-800">
@@ -98,7 +98,7 @@ const deleteRole = (role) => {
                                             </span>
                                             <span v-if="!role.permissions.length" class="text-xs text-gray-500">Nenhuma permissão</span>
                                         </td>
-                                        <td class="px-4 py-2 border-b">
+                                        <td class="px-4 py-2 border-b  whitespace-nowrap">
                                             <button @click="editRole(role)" class="px-2 py-1 text-sm text-white bg-blue-500 rounded hover:bg-blue-600 mr-1">
                                                 Edit
                                             </button>

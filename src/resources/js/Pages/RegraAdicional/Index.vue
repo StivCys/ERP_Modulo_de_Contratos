@@ -1,8 +1,8 @@
 <template>
     <Head title="Regras de Precificação" />
     <AuthenticatedLayout>
-        <div class="py-12">
-            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="py-2">
+            <div class="max-w-8xl p-6">
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold leading-tight text-gray-800">
                         Regras Adicionais e Descontos
